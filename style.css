@@ -45,6 +45,7 @@ header {
 }
 
 .header-inner {
+    position: relative;
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 28px;
@@ -53,6 +54,35 @@ header {
     justify-content: space-between;
     height: 100px;
 }
+
+/* ---- NAV TOGGLE (mobile burger) ---- */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    z-index: 200;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--bright-snow);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, width 0.2s ease;
+}
+
+.nav-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); width: 100%; }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); width: 100%; }
 
 .logo-wrap {
     display: flex;
@@ -210,12 +240,18 @@ nav a.nav-cta:hover {
     background: transparent;
     color: var(--bright-snow);
     border: 2px solid rgba(255,255,255,0.5);
-    margin-left: 12px;
 }
 
 .btn-outline:hover {
     border-color: var(--bright-snow);
     background: rgba(255,255,255,0.08);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
 }
 
 /* ---- PAGE BANNER (inner pages) ---- */
@@ -316,8 +352,10 @@ nav a.nav-cta:hover {
     padding: 18px 28px;
     display: flex;
     justify-content: center;
-    gap: 48px;
+    align-items: center;
+    gap: 32px 48px;
     flex-wrap: wrap;
+    text-align: center;
 }
 
 .trust-item {
@@ -326,9 +364,16 @@ nav a.nav-cta:hover {
     font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .trust-bar { flex-direction: column; gap: 14px; padding: 20px 24px; }
+    .trust-item { white-space: normal; }
 }
 
 .trust-item::before {
@@ -612,10 +657,12 @@ nav a.nav-cta:hover {
     width: 100%;
     max-height: 85vh;
     overflow-y: auto;
-    padding: 36px 40px;
+    overflow-x: hidden;
+    padding: 44px 40px 36px;
     position: relative;
     transform: translateY(20px);
     transition: transform 0.2s;
+    box-sizing: border-box;
 }
 .team-modal-overlay.active .team-modal {
     transform: translateY(0);
@@ -623,6 +670,7 @@ nav a.nav-cta:hover {
 .team-modal h3 {
     font-size: 1.4rem;
     margin-bottom: 4px;
+    overflow-wrap: break-word;
 }
 .team-modal .team-role {
     font-size: 0.8rem;
@@ -637,19 +685,29 @@ nav a.nav-cta:hover {
     color: var(--slate);
     line-height: 1.75;
     white-space: pre-line;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 .team-modal-close {
     position: absolute;
-    top: 16px;
-    right: 20px;
-    width: 32px;
-    height: 32px;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     background: transparent;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     line-height: 1;
     cursor: pointer;
     color: var(--slate);
+}
+
+@media (max-width: 480px) {
+    .team-modal { padding: 40px 24px 28px; }
+    .team-modal-close { top: 8px; right: 8px; }
 }
 .team-modal-close:hover {
     color: var(--jet-black);
@@ -739,9 +797,10 @@ nav a.nav-cta:hover {
 .qual-strip {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
     margin-top: 36px;
-	text-align: centre;
+	text-align: center;
 }
 
 .qual-badge {
@@ -755,7 +814,6 @@ nav a.nav-cta:hover {
     font-size: 0.82rem;
     font-weight: 600;
     letter-spacing: 0.5px;
-	align-content: centre;
 }
 
 /* ---- SERVICES PAGE ---- */
@@ -1032,15 +1090,44 @@ footer {
     .footer-inner .footer-brand { grid-column: 1 / -1; }
 }
 
+@media (max-width: 900px) {
+    .nav-toggle { display: flex; }
+
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        background: var(--jet-black);
+        border-bottom: 3px solid var(--dark-cyan);
+        padding: 10px 20px;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
+    }
+
+    nav.open {
+        max-height: 400px;
+        opacity: 1;
+        padding: 16px 20px 22px;
+    }
+
+    nav a { width: 100%; text-align: center; padding: 14px 10px; font-size: 0.95rem; }
+    nav a.nav-cta { margin-left: 0; margin-top: 8px; }
+}
+
 @media (max-width: 640px) {
     .header-inner { height: 80px; }
-    .logo-wrap img { height: 82px; }
-    nav a { padding: 6px 10px; font-size: 0.8rem; }
-    nav a.nav-cta { display: none; }
+    .logo-wrap img { height: 60px; }
     .hero-content { padding: 0 24px; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .hero-actions .btn { text-align: center; }
     .service-preview,
     .services-grid { grid-template-columns: 1fr; }
-    .trust-bar { gap: 24px; }
     .footer-inner { grid-template-columns: 1fr; }
 }
 
