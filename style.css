@@ -1079,7 +1079,7 @@ footer {
 }
 
 /* ---- RESPONSIVE ---- */
-@media (max-width: 90px) {
+@media (max-width: 900px) {
     .intro-split,
     .about-intro,
     .contact-grid { grid-template-columns: 1fr; gap: 36px; }
