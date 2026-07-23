@@ -1188,3 +1188,14 @@ footer {
         gap: 32px;
     }
 }
+/* Styling for links inside the contact info box */
+.hours-list li span a {
+    color: inherit; /* Takes the color from the parent span (light grey/white) */
+    text-decoration: none; /* Removes the underline */
+    transition: color 0.2s ease;
+}
+
+.hours-list li span a:hover {
+    color: var(--wheat); /* Turns the wheat color when you hover over it */
+    text-decoration: underline;
+}
